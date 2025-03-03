@@ -88,11 +88,12 @@ def main():
                 ssh_zfs_list.remove(zfs)
     if len(ssh_zfs_list) > 0:
         #We still have items left, so we need to flag this!
+        body = "No Bacula job found for the following filesystems:\n"
+        subject = "Missing Bacula Jobs!"
         for zfs_left in ssh_zfs_list:
-            body = f"No Bacula job found for filesystem {zfs_left.dataset} on {zfs_left.server}. Please check this is correct"
-            subject = f"Check tape backups for {zfs_left.dataset} on {zfs_left.server}"
-            cmd = (f'echo {body} | mailx -s {subject}') + email_address
-            subprocess.run(cmd, shell=True, check=True)
+            body = body + f"{zfs_left.dataset} on {zfs_left.server}\n"
+        cmd = (f'echo {body} | mailx -s {subject}') + email_address
+        subprocess.run(cmd, shell=True, check=True)
 
 if __name__ == '__main__':
     main()
