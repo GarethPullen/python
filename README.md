@@ -27,7 +27,7 @@ Assumes the client (i.e. the server we are backing up from) has already been add
 ### bacula_job_check.py
 Script to be run via Cron Job. SSH's onto servers, gets a list of all mounted ZFS datasets, then checks for Bacula Jobs for them. If any jobs are missing it sends an email listing them to an address.
 
-## bacula_audit.py
+### bacula_audit.py
 Script to be run via Cron job. Will work through all ZFS datasets on listed servers, pick a small-ish file and SHA1-sum it, then attempt to restore the same file from a backup and compare the SHA1-sum. In the event of them not matching, sends an email.
 
 Expects all ZFS datasets to have a ".zfs/<date>-monthly" snapshot to check against.
